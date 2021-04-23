@@ -3,7 +3,10 @@ package kr.ac.jejunu.userdao;
 import java.sql.*;
 
 public class UserDao{
-    private ConnectionMaker connectionMaker = new JejuConnectionMaker();
+    private ConnectionMaker connectionMaker;
+    UserDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
     public User get(Integer id) throws ClassNotFoundException, SQLException {
         Connection connection = connectionMaker.getConnection();
         PreparedStatement preparedStatement =

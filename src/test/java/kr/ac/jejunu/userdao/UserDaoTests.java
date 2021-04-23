@@ -16,7 +16,7 @@ public class UserDaoTests {
     @Test
     public void testGet() throws SQLException, ClassNotFoundException {
         Integer id = 1;
-        UserDao userDao = new UserDao();
+        UserDao userDao = new UserDao(new JejuConnectionMaker());
         User user = userDao.get(id);
         assertThat(user.getId(), is(id));
         assertThat(user.getName(), is(name));
@@ -25,7 +25,7 @@ public class UserDaoTests {
 
     @Test
     public void testInsert() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new UserDao();
+        UserDao userDao = new UserDao(new JejuConnectionMaker());
         User user = new User();
         user.setName(name);
         user.setPassword(password);
