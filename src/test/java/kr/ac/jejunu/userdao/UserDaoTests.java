@@ -16,7 +16,7 @@ public class UserDaoTests {
     @Test
     public void testGet() throws SQLException, ClassNotFoundException {
         Integer id = 1;
-        UserDao userDao = new UserDao();
+        UserDao userDao = new JejuUserDao();
         User user = userDao.get(id);
         assertThat(user.getId(), is(id));
         assertThat(user.getName(), is(name));
@@ -25,7 +25,7 @@ public class UserDaoTests {
 
     @Test
     public void testInsert() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new UserDao();
+        UserDao userDao = new JejuUserDao();
         User user = new User();
         user.setName(name);
         user.setPassword(password);
@@ -37,7 +37,30 @@ public class UserDaoTests {
         assertThat(insertedUser.getName(), is(name));
         assertThat(insertedUser.getPassword(), is(password));
     }
+    @Test
+    public void testGetHalla() throws SQLException, ClassNotFoundException {
+        Integer id = 1;
+        UserDao userDao = new HallaUserDao();
+        User user = userDao.get(id);
+        assertThat(user.getId(), is(id));
+        assertThat(user.getName(), is(name));
+        assertThat(user.getPassword(), is(password));
+    }
 
+    @Test
+    public void testInsertHalla() throws SQLException, ClassNotFoundException {
+        UserDao userDao = new HallaUserDao();
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+
+        userDao.insert(user);
+
+        User insertedUser = userDao.get(user.getId());
+        assertThat(insertedUser.getId(), greaterThan(0));
+        assertThat(insertedUser.getName(), is(name));
+        assertThat(insertedUser.getPassword(), is(password));
+    }
 
 
 
