@@ -22,7 +22,7 @@ public class UserDaoTests {
     @BeforeAll
     public static void setup() {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoFactory.class);
-        userDao = applicationContext.getBean("userDao", UserDao.class);
+        userDao = applicationContext.getBean("UserDao", UserDao.class);
     }
     @Test
     public void testGet() throws SQLException, ClassNotFoundException {
