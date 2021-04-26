@@ -1,10 +1,10 @@
 package kr.ac.jejunu.userdao;
 
 import java.sql.*;
-
+//context:변하지 않는 것 strategy: 변함
 public class UserDao{
-    private ConnectionMaker connectionMaker;
-    UserDao(ConnectionMaker connectionMaker) {
+    private final ConnectionMaker connectionMaker;
+    public UserDao(ConnectionMaker connectionMaker) {
         this.connectionMaker = connectionMaker;
     }
     public User get(Integer id) throws ClassNotFoundException, SQLException {

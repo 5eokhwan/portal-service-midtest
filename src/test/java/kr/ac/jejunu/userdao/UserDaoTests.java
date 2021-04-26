@@ -13,11 +13,15 @@ import static org.hamcrest.core.Is.is;
 public class UserDaoTests {
     String name = "hulk";
     String password = "1234";
+    DaoFactory daoFactory = new DaoFactory();
     @Test
     public void testGet() throws SQLException, ClassNotFoundException {
         Integer id = 1;
-        UserDao userDao = new UserDao(new JejuConnectionMaker());
+
+        DaoFactory daoFactory = new DaoFactory();
+        UserDao userDao = daoFactory.getUserDao();
         User user = userDao.get(id);
+
         assertThat(user.getId(), is(id));
         assertThat(user.getName(), is(name));
         assertThat(user.getPassword(), is(password));
@@ -25,11 +29,11 @@ public class UserDaoTests {
 
     @Test
     public void testInsert() throws SQLException, ClassNotFoundException {
-        UserDao userDao = new UserDao(new JejuConnectionMaker());
         User user = new User();
         user.setName(name);
         user.setPassword(password);
-
+        DaoFactory daoFactory = new DaoFactory();
+        UserDao userDao = daoFactory.getUserDao();
         userDao.insert(user);
 
         User insertedUser = userDao.get(user.getId());

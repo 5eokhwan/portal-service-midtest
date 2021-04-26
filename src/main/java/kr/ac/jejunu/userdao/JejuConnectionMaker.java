@@ -9,7 +9,7 @@ public class JejuConnectionMaker implements ConnectionMaker {
     public Connection getConnection() throws ClassNotFoundException, SQLException
     {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://localhost/kakao_track?serverTimezone=UTC"
+            return DriverManager.getConnection("jdbc:mysql://localhost/kakao_track?characterEncoding=utf-8&serverTimezone=UTC"
                     , "root", "sshh1013");
     }
 
