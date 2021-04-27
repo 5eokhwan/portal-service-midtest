@@ -24,6 +24,7 @@ public class UserDaoTests {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoFactory.class);
         userDao = applicationContext.getBean("UserDao", UserDao.class);
     }
+
     @Test
     public void testGet() throws SQLException, ClassNotFoundException {
         Integer id = 1;
@@ -47,43 +48,36 @@ public class UserDaoTests {
         assertThat(insertedUser.getName(), is(name));
         assertThat(insertedUser.getPassword(), is(password));
     }
+    @Test
+    public void update() throws SQLException {
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        userDao.insert(user);
 
+        String updatedName = "새이름";
+        user.setName(updatedName);
+        String updatedPassword = "1111";
+        user.setPassword(updatedPassword);
 
+        userDao.update(user);
 
+        User updatedUser = userDao.get(user.getId());
+        assertThat(updatedUser.getName(), is(updatedName));
+        assertThat(updatedUser.getPassword(), is(updatedPassword));
+    }
 
+    @Test
+    public void delete() throws SQLException {
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        userDao.insert(user);
 
+        userDao.delete(user.getId());
 
+        User deletedUser = userDao.get(user.getId());
 
-//    @Test
-//    public void update() throws SQLException {
-//        User user = new User();
-//        user.setName(name);
-//        user.setPassword(password);
-//        userDao.insert(user);
-//
-//        String updatedName = "허윤호";
-//        user.setName(updatedName);
-//        String updatedPassword = "1111";
-//        user.setPassword(updatedPassword);
-//
-//        userDao.update(user);
-//
-//        User updatedUser = userDao.get(user.getId());
-//        assertThat(updatedUser.getName(), is(updatedName));
-//        assertThat(updatedUser.getPassword(), is(updatedPassword));
-//    }
-//
-//    @Test
-//    public void delete() throws SQLException {
-//        User user = new User();
-//        user.setName(name);
-//        user.setPassword(password);
-//        userDao.insert(user);
-//
-//        userDao.delete(user.getId());
-//
-//        User deletedUser = userDao.get(user.getId());
-//
-//        assertThat(deletedUser, IsNull.nullValue());
-//    }
+        assertThat(deletedUser, IsNull.nullValue());
+    }
 }
